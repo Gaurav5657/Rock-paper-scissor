@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.main-container {
+  width: 600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.computer {
+  width: 180px;
+  height: 80px;
+  font-size: 50px;
+  background: red;
+}
+.me {
+  width: 180px;
+  height: 80px;
+  font-size: 50px;
+}
+#rock {
+  cursor: pointer;
+}
