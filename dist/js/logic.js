@@ -4,7 +4,7 @@ const ROCK = document.getElementById("rock");
 const PAPER = document.getElementById("paper");
 const SCISSOR = document.getElementById("scissor");
 const FINALCHECK = document.getElementById("final-check");
-
+const COMPUTERRESPONCE = document.getElementById("computer-responce");
 const ALLWINNERLOSERDATA = [];
 
 const computer = {
@@ -63,7 +63,7 @@ const gameLogic = (playerr, computerr) => {
 };
 const computerInput = () => {
   let computerMainResponce = computer.computerGenerator();
-  computer.computerResponces.push(computerMainResponce);
+  //BUG computer.computerResponces.push(computerMainResponce);
   return computerMainResponce;
 };
 
@@ -85,6 +85,7 @@ const winnerForCurrentRound = (passed) => {
 
   let winner = gameLogic(playerInputForThisRound, computerInputForThisRound);
   ALLWINNERLOSERDATA.push(winner);
+  console.log(ALLWINNERLOSERDATA);
   console.log(computerInputForThisRound, playerInputForThisRound, winner);
 };
 let computerWins = 0;
@@ -96,10 +97,10 @@ const finalWinner = () => {
     } else if (ALLWINNERLOSERDATA[index] === "Computer Win") {
       computerWins = computerWins + 1;
     } else if (ALLWINNERLOSERDATA[index] === "DRAW") {
-      break;
+      continue;
     }
   }
-
+  console.log(computerWins, playerWins);
   if (computerWins > playerWins) {
     return "COMPUTER IS THE ULTIMATE WINNER";
   } else if (playerWins > computerWins) {
@@ -110,16 +111,20 @@ const finalWinner = () => {
 };
 const executorFunction = (passed) => {
   winnerForCurrentRound(passed);
+  console.log(computer.computerResponces);
 };
 
 ROCK.addEventListener("click", () => {
   executorFunction("rock");
+  computerResponceUpdater();
 });
 PAPER.addEventListener("click", () => {
   executorFunction("paper");
+  computerResponceUpdater();
 });
 SCISSOR.addEventListener("click", () => {
   executorFunction("scissor");
+  computerResponceUpdater();
 });
 
 FINALCHECK.addEventListener("click", () => {
