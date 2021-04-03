@@ -6,6 +6,14 @@ const SCISSOR = document.getElementById("scissor");
 const FINALCHECK = document.getElementById("final-check");
 const COMPUTERRESPONCE = document.getElementById("computer-responce");
 const ALLWINNERLOSERDATA = [];
+const ROUNDWINNERDISPLAYER = document.querySelector(".roundwinner h1");
+
+const tableComputerResponce = document.querySelector(
+  ".currentResponceComputer"
+);
+const tableComputerScore = document.querySelector(".computer-points");
+const tablePlayerResponce = document.querySelector(".currentResponcePlayer");
+const tablePlayerScore = document.querySelector(".player-points");
 
 const computer = {
   title: "Computer",
@@ -82,15 +90,15 @@ const playerInput = function (passed) {
 const winnerForCurrentRound = (passed) => {
   let computerInputForThisRound = computerInput().toLowerCase();
   let playerInputForThisRound = playerInput(passed).toLowerCase();
-
+  playerResponceUpdater(passed);
   let winner = gameLogic(playerInputForThisRound, computerInputForThisRound);
   ALLWINNERLOSERDATA.push(winner);
-  console.log(ALLWINNERLOSERDATA);
-  console.log(computerInputForThisRound, playerInputForThisRound, winner);
+  return winner;
 };
-let computerWins = 0;
-let playerWins = 0;
-const finalWinner = () => {
+
+const winnerUpdater = () => {
+  let computerWins = 0;
+  let playerWins = 0;
   for (let index = 0; index < ALLWINNERLOSERDATA.length; index++) {
     if (ALLWINNERLOSERDATA[index] === "Player Win") {
       playerWins = playerWins + 1;
@@ -100,18 +108,14 @@ const finalWinner = () => {
       continue;
     }
   }
-  console.log(computerWins, playerWins);
-  if (computerWins > playerWins) {
-    return "COMPUTER IS THE ULTIMATE WINNER";
-  } else if (playerWins > computerWins) {
-    return "PLAYER IS THE ULTIMATE WINNER";
-  } else {
-    return "DRAW";
-  }
+  tableComputerScore.textContent = computerWins;
+  tablePlayerScore.textContent = playerWins;
 };
+
 const executorFunction = (passed) => {
-  winnerForCurrentRound(passed);
-  console.log(computer.computerResponces);
+  let currentWinnerDecided = winnerForCurrentRound(passed);
+  currentRoundWinnerUpdater(currentWinnerDecided);
+  winnerUpdater();
 };
 
 ROCK.addEventListener("click", () => {
@@ -125,8 +129,4 @@ PAPER.addEventListener("click", () => {
 SCISSOR.addEventListener("click", () => {
   executorFunction("scissor");
   computerResponceUpdater();
-});
-
-FINALCHECK.addEventListener("click", () => {
-  console.log(finalWinner());
 });
